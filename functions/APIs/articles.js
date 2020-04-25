@@ -40,7 +40,8 @@ exports.createArticle = (request, response) => {
     const newArticleItem = {
         title : request.body.title,
         body : request.body.body,
-        createdAt : new Date().toISOString()
+        createdAt : new Date().toISOString(),
+        username : request.user.username
     }
 
     db
