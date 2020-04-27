@@ -3,11 +3,11 @@ const app = require('express')();
 const auth = require('./util/auth');
 
 const {
-    loginUser, signUpUser
+    loginUser, signUpUser, getUserDetail
 } = require('./APIs/users')
 app.post('/login',loginUser);
 app.post('/signup', signUpUser);
-
+app.get('/user',auth, getUserDetail);
 
 
 const {
