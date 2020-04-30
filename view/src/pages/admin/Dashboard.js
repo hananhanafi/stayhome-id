@@ -25,7 +25,7 @@ class Dashboard extends Component{
 	}
 
     componentWillMount = () => {
-		authMiddleWare(this.props.history);
+		// authMiddleWare(this.props.history);
 		const authToken = localStorage.getItem('AuthToken');
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
@@ -45,7 +45,7 @@ class Dashboard extends Component{
 			})
 			.catch((error) => {
 				if(error.response.status === 403) {
-					this.props.history.push('/login')
+					this.props.history.push('/admin/login')
 				}
 				console.log(error);
 				this.setState({ errorMsg: 'Error in retrieving the data' });
@@ -58,6 +58,7 @@ class Dashboard extends Component{
         <div id="page-top">
 
             {/* <!-- Page Wrapper --> */}
+            {!this.state.uiLoading &&
             <div id="wrapper">
 
                 {/* <!-- Sidebar --> */}
@@ -190,6 +191,7 @@ class Dashboard extends Component{
                 {/* <!-- End of Content Wrapper --> */}
 
             </div>
+            }
             {/* <!-- End of Page Wrapper --> */}
 
         </div>
