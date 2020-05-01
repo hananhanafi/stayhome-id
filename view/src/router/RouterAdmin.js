@@ -10,8 +10,8 @@ class RouterAdmin extends React.Component{
     render(){
         return(
             <Switch>
-                <Route path="/admin/login" component={Login}></Route>
-                <Route path="/admin/dashboard" component={Dashboard}></Route>
+                <Route path="/login" component={Login}></Route>
+                <Route path="/dashboard" component={Dashboard}></Route>
             </Switch>
 
         )

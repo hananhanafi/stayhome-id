@@ -29,7 +29,7 @@ class Login extends Component{
             password : this.state.password
         }
         axios
-            .post('/login',userData)
+            .post('https://us-central1-stayhome-id.cloudfunctions.net/api/login',userData)
             .then((response)=>{
                 localStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
                 Swal.fire({
@@ -39,7 +39,7 @@ class Login extends Component{
                     showConfirmButton: false,
                     timer: 1500
                 })
-				this.props.history.push('/admin/dashboard');
+				this.props.history.push('/dashboard');
             })
             .catch((error)=>{
                 console.log(error.response)

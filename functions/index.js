@@ -1,6 +1,10 @@
 const functions = require('firebase-functions');
 const app = require('express')();
+const cors = require('cors');
 const auth = require('./util/auth');
+
+// Automatically allow cross-origin requests
+app.use(cors({ origin: true }));
 
 const {
     loginUser, signUpUser, getUserDetail

@@ -9,7 +9,7 @@ import {authMiddleWare} from '../../util/auth';
 class Dashboard extends Component{
     logoutHandler = (event) => {
 		localStorage.removeItem('AuthToken');
-		this.props.history.push('/admin/login');
+		this.props.history.push('/login');
     };
 
     constructor(props) {
@@ -29,7 +29,7 @@ class Dashboard extends Component{
 		const authToken = localStorage.getItem('AuthToken');
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
-			.get('/user')
+			.get('https://us-central1-stayhome-id.cloudfunctions.net/api/user')
 			.then((response) => {
 				console.log(response.data);
 				this.setState({
@@ -45,7 +45,7 @@ class Dashboard extends Component{
 			})
 			.catch((error) => {
 				if(error.response.status === 403) {
-					this.props.history.push('/admin/login')
+					this.props.history.push('/login')
 				}
 				console.log(error);
 				this.setState({ errorMsg: 'Error in retrieving the data' });

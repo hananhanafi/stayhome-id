@@ -26,7 +26,7 @@ class Article extends Component{
 		const authToken = localStorage.getItem('AuthToken');
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
-			.get('/articles')
+			.get('https://us-central1-stayhome-id.cloudfunctions.net/api/articles')
 			.then((response) => {
 				this.setState({
 					articles: response.data,
@@ -41,7 +41,7 @@ class Article extends Component{
         const authToken = localStorage.getItem('AuthToken');
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
-			.get('/articles')
+			.get('https://us-central1-stayhome-id.cloudfunctions.net/api/articles')
 			.then((response) => {
 				this.setState({
 					articles: response.data,
@@ -78,7 +78,7 @@ class Article extends Component{
         }
         const authToken = localStorage.getItem('AuthToken');
         axios.defaults.headers.common = { Authorization: `${authToken}` };
-        axios.post('/article',newArticle)
+        axios.post('https://us-central1-stayhome-id.cloudfunctions.net/api/article',newArticle)
         .then((response)=>{
             this.requestArticles();
             Swal.fire({
@@ -115,7 +115,7 @@ class Article extends Component{
             axios.defaults.headers.common = { Authorization: `${authToken}` };
             let articleId = data.article.articleId;
             axios
-                .delete('/article/'+`${articleId}`)
+                .delete('https://us-central1-stayhome-id.cloudfunctions.net/api/article/'+`${articleId}`)
                 .then(() => {
                     this.requestArticles()
                 })
@@ -152,7 +152,7 @@ class Article extends Component{
 			body: this.state.body,
         };
         let articleId = this.state.articleId;
-        axios.put('/article/'+`${articleId}`,formRequest)
+        axios.put('https://us-central1-stayhome-id.cloudfunctions.net/api/article/'+`${articleId}`,formRequest)
         .then(()=>{
             this.requestArticles();
             Swal.fire({

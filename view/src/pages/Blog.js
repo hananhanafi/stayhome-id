@@ -15,13 +15,16 @@ class Blog extends Component{
     }
 
     componentWillMount = () =>{
-        axios.get('/articles')
+        axios.get('https://us-central1-stayhome-id.cloudfunctions.net/api/articles')
         .then((response)=>{
             this.setState({
                 articles : Array.from(response.data),
                 load:false
 
             })
+        })
+        .catch((err)=>{
+            console.log(err);
         })
     }
 

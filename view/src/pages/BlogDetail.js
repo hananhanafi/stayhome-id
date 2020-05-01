@@ -17,7 +17,7 @@ class BlogDetail extends Component{
         const {articleId} = this.props.match.params
         console.log("detail",articleId);
 
-        axios.get(`/article/${articleId}`)
+        axios.get(`https://us-central1-stayhome-id.cloudfunctions.net/api/article/${articleId}`)
         .then((response)=>{
             this.setState({
                 article: response.data,
