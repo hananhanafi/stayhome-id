@@ -1,14 +1,27 @@
 import React,{ Component } from "react";
+import './edukasi.css';
+import VideoEdukasi from '../components/edukasi/VideoEdukasi';
+import Informasi from '../components/edukasi/Informasi';
+import Saran from '../components/edukasi/Saran';
+import Mitos from '../components/edukasi/Mitos';
 
 class Edukasi extends Component{
     render(){
 
         return (
         <div className="App-header">
-            <h1>Edukasi</h1>
+
+            <div className="container">
+                
+                <VideoEdukasi/>
+                <Informasi/>
+                <Saran/>
+                <Mitos/>
+            </div>
 
 
-        </div>
+
+            </div>
         )
     }
 }
