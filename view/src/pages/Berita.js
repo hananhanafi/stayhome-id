@@ -46,7 +46,7 @@ class Berita extends React.Component {
     }
 
     renderLoading() {
-        return <h3 className="mt-5 text-center">
+        return <h3 className="text-center App-header">
         Loading...
         </h3>
     }
