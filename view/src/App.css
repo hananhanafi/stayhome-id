@@ -14,7 +14,8 @@
 }
 
 .App-header {
-  background-color: #f2f3f9;
+  /* background-color: #f2f3f9; */
+  background-color: white;
 
   min-height: 100vh;
   display: flex;

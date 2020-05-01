@@ -1,6 +1,7 @@
 import React,{ Component } from "react";
 import axios from 'axios';
 import { withRouter } from "react-router-dom";
+import moment from 'moment';
 
 class Blog extends Component{
 
@@ -30,10 +31,20 @@ class Blog extends Component{
         this.props.history.push(`/blog/${articleId}`)
     }
 
+    renderLoading() {
+        return <h3 className="mt-5 text-center App-header">
+            Loading...
+        </h3>
+    }
+
+
     render(){
 
         return (
         <div>
+            
+        {this.state.load && this.renderLoading()}
+            {!this.state.load && 
             <div className="container text-black">
                 <div className="row">
                     <div className="col-12 my-5">
@@ -44,12 +55,13 @@ class Blog extends Component{
                 <div className="row mb-5">
                     {Object.keys(this.state.articles).map((key)=>{
                     {var data = this.state.articles[key]}
+                    {var date = moment(data.createdAt, "YYYYMMDD").fromNow()}
                     return (
                         <div className="col-12 mb-2">
                             <div class="card w-100">
                                 <div class="card-body text-left">
                                     <h5 class="card-title">{data.title}</h5>
-                                    <small>Created at : {data.createdAt}</small>
+                                    <small>{date}</small>
                                     <button onClick={()=>this.showHandle({data})} class="btn btn-primary float-right">Baca</button>
                                 </div>
                             </div>
@@ -60,6 +72,7 @@ class Blog extends Component{
                     
                 </div>
             </div>
+                }
 
 
         </div>

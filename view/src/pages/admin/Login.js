@@ -1,6 +1,7 @@
 import React,{ Component } from "react";
 import './Login.css';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 
 class Login extends Component{
@@ -22,6 +23,7 @@ class Login extends Component{
 
     handleSubmit = (event) => {
         event.preventDefault();
+        
         const userData = {
             email : this.state.email,
             password : this.state.password
@@ -30,12 +32,40 @@ class Login extends Component{
             .post('/login',userData)
             .then((response)=>{
                 localStorage.setItem('AuthToken', `Bearer ${response.data.token}`);
-                
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Login success',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
 				this.props.history.push('/admin/dashboard');
             })
             .catch((error)=>{
-                console.log(error.response.data)
+                console.log(error.response)
+                if(error.request.status == 400){
+                    
+                    if(error.response.data.email!=undefined){
+                        var message = "Email " + error.response.data.email 
+                    }else{
+                        var message = "Password " + error.response.data.password
+                    }
 
+                    Swal.fire({
+                        title: 'Error!',
+                        text: message,
+                        icon: 'error',
+                        confirmButtonText: 'Close'
+                    })
+
+                }else{
+                    Swal.fire({
+                        title: 'Error!',
+                        text: error.response.data.general,
+                        icon: 'error',
+                        confirmButtonText: 'Close'
+                    })
+                }
             })
             
 

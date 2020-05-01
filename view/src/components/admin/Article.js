@@ -2,6 +2,8 @@ import React,{ Component } from "react";
 import axios from 'axios';
 import {authMiddleWare} from '../../util/auth';
 import { Editor } from '@tinymce/tinymce-react'; 
+import Swal from 'sweetalert2';
+
 
 class Article extends Component{
     constructor(props) {
@@ -35,6 +37,21 @@ class Article extends Component{
 			});
     };
 
+    requestArticles = () =>{
+        const authToken = localStorage.getItem('AuthToken');
+		axios.defaults.headers.common = { Authorization: `${authToken}` };
+		axios
+			.get('/articles')
+			.then((response) => {
+				this.setState({
+					articles: response.data,
+				});
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+    }
+
     handleChange = (event) => {
 		this.setState({
 			[event.target.name]: event.target.value
@@ -63,26 +80,61 @@ class Article extends Component{
         axios.defaults.headers.common = { Authorization: `${authToken}` };
         axios.post('/article',newArticle)
         .then((response)=>{
-            window.location.reload();
+            this.requestArticles();
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Success',
+                showConfirmButton: false,
+                timer: 1500
+            })
         })
         .catch((error)=>{
             console.log(error)
         })
+        this.setState({
+            title:"",
+            body:""
+        })
     }
         
     deleteArticleHandler(data) {
-		authMiddleWare(this.props.history);
-		const authToken = localStorage.getItem('AuthToken');
-		axios.defaults.headers.common = { Authorization: `${authToken}` };
-		let articleId = data.article.articleId;
-		axios
-			.delete('/article/'+`${articleId}`)
-			.then(() => {
-				window.location.reload();
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+        if (result.value) {
+            
+            authMiddleWare(this.props.history);
+            const authToken = localStorage.getItem('AuthToken');
+            axios.defaults.headers.common = { Authorization: `${authToken}` };
+            let articleId = data.article.articleId;
+            axios
+                .delete('/article/'+`${articleId}`)
+                .then(() => {
+                    this.requestArticles()
+                })
+                .then(()=>{
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'Delete succesfully',
+                        showConfirmButton: false,
+                        timer: 2000
+                    })
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+        })
+
+		
     }
     handleEditClickOpen(data) {
 		this.setState({
@@ -102,8 +154,14 @@ class Article extends Component{
         let articleId = this.state.articleId;
         axios.put('/article/'+`${articleId}`,formRequest)
         .then(()=>{
-            console.log("update succesfully");
-            window.location.reload();
+            this.requestArticles();
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Update succesfully',
+                showConfirmButton: false,
+                timer: 1500
+            })
 
         })
         .catch((error)=>{
@@ -124,9 +182,9 @@ class Article extends Component{
                     {/* <!-- DataTales Example --> */}
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary float-left">Articles</h6>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreate">
-                        Add
+                        <h6 class="m-0 font-weight-bold text-primary float-left">Articles </h6>
+                        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modalCreate">
+                        ADD +
                         </button>
                         </div>
                         <div class="card-body">
@@ -202,7 +260,7 @@ class Article extends Component{
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" onClick={this.createHandleSubmit} >Add</button>
+                                <button type="button" class="btn btn-primary" onClick={this.createHandleSubmit} data-dismiss="modal" >Add</button>
                             </div>
                         </div>
                     </div>
@@ -246,7 +304,7 @@ class Article extends Component{
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" onClick={this.editHandlerSubmit} >Update</button>
+                                <button type="button" class="btn btn-primary" onClick={this.editHandlerSubmit} data-dismiss="modal" >Update</button>
                             </div>
                         </div>
                     </div>

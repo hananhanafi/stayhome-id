@@ -20,15 +20,24 @@ class BlogDetail extends Component{
         axios.get(`/article/${articleId}`)
         .then((response)=>{
             this.setState({
-                article: response.data
+                article: response.data,
+                load:false
             })
             console.log(response.data);
         })
+    }
+
+    renderLoading() {
+        return <h3 className="mt-5 text-center App-header">
+            Loading...
+        </h3>
     }
     render(){
 
         return (
         <div>
+            {this.state.load && this.renderLoading()}
+            {!this.state.load &&
             <div className="container">
                 <div className="row my-5">
                     <div className="col text-left">
@@ -54,7 +63,7 @@ class BlogDetail extends Component{
                 </div>
             </div>
 
-
+            }
         </div>
         )
     }
