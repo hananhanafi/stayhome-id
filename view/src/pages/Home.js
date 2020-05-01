@@ -2,6 +2,7 @@ import React,{ Component } from "react";
 import Axios from "axios";
 import moment from 'moment';
 import Card from '../components/home/Card';
+import AnyChart from 'anychart-react';
 
 
 
@@ -14,6 +15,8 @@ class Home extends React.Component{
         totalPositif:[],
         totalSembuh:[],
         totalMeninggal:[],
+        dataGlobal:[],
+        
         
         
     }
@@ -101,6 +104,24 @@ class Home extends React.Component{
             console.log(error);
         });
 
+        //global
+
+        Axios.get('https://api.kawalcorona.com/')
+        .then(response => {
+            return response.data;
+        
+        })
+        .then(data=>{
+            this.setState({
+                dataGlobal:data,
+                loadGlobal:false,
+                loading:false,
+            })
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
 
         
 
@@ -119,12 +140,20 @@ class Home extends React.Component{
     
 
     render(){
-        const {dataIndonesia,loading,dataProvinsi,loadGlobal,totalPositif,totalMeninggal,totalSembuh} = this.state
+        const {dataIndonesia,loading,dataProvinsi,loadGlobal,totalPositif,totalMeninggal,totalSembuh,dataGlobal} = this.state
 
 
         if(!loadGlobal){
-            var date = moment(dataProvinsi[0].attributes.Last_Update).format('MMMM Do YYYY, h:mm:ss a');
+            var date = moment(dataGlobal[0].attributes.Last_Update).format('MMMM Do YYYY, h:mm:ss a');
         }
+        
+        if(!loading){
+            var positifIndonesia = dataIndonesia[0].positif.replace(",","");
+            var sembuhIndonesia = dataIndonesia[0].sembuh.replace(",","");
+            var meninggalIndonesia = dataIndonesia[0].meninggal.replace(",","");
+
+        }
+        
 
         return (
         <header className="App-header">
@@ -164,6 +193,23 @@ class Home extends React.Component{
 
                     <div className="row">
                         <div className="col">
+                            <div id="mapid" className="map" style={{height:"500px"}}>
+                            <AnyChart
+                                height={500}
+                                type="pie"
+                                data={[["Positif", positifIndonesia],
+                                ["sembuh",sembuhIndonesia],
+                                ["Meninggal", meninggalIndonesia]]}
+                                title="Covid-19 Pie Chart Indonesia Data"
+                                
+                            />
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col">
                         <p>last update: {date} </p>
                         </div>
                     </div>
@@ -176,12 +222,9 @@ class Home extends React.Component{
                         </div>
                     </div>
                     <div className="row text-left">
-                        <div className="col-1">
-
-                        </div>
                         <div className="col">
                         <table style={{maxHeight:"500px"}} className="table table-hover table-sm  table-responsive">
-                            <thead className="">
+                            <thead className="text-black">
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">Provinsi</th>
@@ -193,7 +236,7 @@ class Home extends React.Component{
                             <tbody>
                             {!loading &&
                             dataProvinsi.map((data,index)=>{
-                                return <tr>
+                                return <tr className="text-black">
                                     <th scope="row">{index+1}</th>
                                     <td>{data.attributes.Provinsi}</td>
                                     <td>{data.attributes.Kasus_Posi}</td>
@@ -208,6 +251,7 @@ class Home extends React.Component{
                         </table>
                         </div>
                     </div>
+                    
                 </div>
 
                 <div className="container my-5">
@@ -240,8 +284,9 @@ class Home extends React.Component{
                         </div>
                     </div>
                 </div>
-            </div>)}
 
+            </div>)}
+                        
 
 
             </header>
