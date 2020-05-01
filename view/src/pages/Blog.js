@@ -32,7 +32,7 @@ class Blog extends Component{
     }
 
     renderLoading() {
-        return <h3 className="mt-5 text-center App-header">
+        return <h3 className="text-center App-header">
             Loading...
         </h3>
     }
@@ -43,7 +43,7 @@ class Blog extends Component{
         return (
         <div>
             
-        {this.state.load && this.renderLoading()}
+            {this.state.load && this.renderLoading()}
             {!this.state.load && 
             <div className="container text-black">
                 <div className="row">
