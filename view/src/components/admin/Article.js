@@ -37,6 +37,7 @@ class Article extends Component{
 			});
     };
 
+
     requestArticles = () =>{
         const authToken = localStorage.getItem('AuthToken');
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
@@ -51,6 +52,7 @@ class Article extends Component{
 				console.log(err);
 			});
     }
+
 
     handleChange = (event) => {
 		this.setState({
@@ -67,6 +69,13 @@ class Article extends Component{
             'Content was updated:',
             this.state.body
         );
+    }
+
+    clearEditor = () => {
+        this.setState({
+            title:"",
+            body:""
+        })
     }
 
     createHandleSubmit = (event) =>{
@@ -92,12 +101,8 @@ class Article extends Component{
         .catch((error)=>{
             console.log(error)
         })
-        this.setState({
-            title:"",
-            body:""
-        })
     }
-        
+
     deleteArticleHandler(data) {
         Swal.fire({
             title: 'Are you sure?',
@@ -133,9 +138,9 @@ class Article extends Component{
                 });
         }
         })
-
-		
     }
+
+    
     handleEditClickOpen(data) {
 		this.setState({
 			title: data.article.title,
@@ -167,10 +172,9 @@ class Article extends Component{
         .catch((error)=>{
             console.log(error)
         })
-
-        
-
     }
+
+
     render(){
         return(
             <div>
@@ -183,7 +187,7 @@ class Article extends Component{
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                         <h6 class="m-0 font-weight-bold text-primary float-left">Articles </h6>
-                        <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modalCreate">
+                        <button onClick={()=>this.clearEditor()} type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modalCreate">
                         ADD +
                         </button>
                         </div>
@@ -235,10 +239,11 @@ class Article extends Component{
                             </div>
                             <div class="modal-body text-left">
                                 <label for="inputTitle">Title</label>
-                                <input name="title" onChange={this.handleChange} type="text" class="form-control" id="inputTitle" aria-describedby="emailHelp"></input>
+                                <input value={this.state.title} name="title" onChange={this.handleChange} type="text" class="form-control" id="inputTitle" aria-describedby="emailHelp"></input>
                                 <label for="exampleInputEmail1">Body</label>
 
                                 <Editor
+                                    value={this.state.body}
                                     name="body"
                                     apiKey="8ypfbow8mpjv1wvtnpgg5tt4m8bpqo0wgvsnmukzs7z8ahtv"
                                     init={{

@@ -1,10 +1,7 @@
 const { admin, db } = require('../util/admin');
 const config = require('../util/config');
-
 const firebase = require('firebase');
-
 firebase.initializeApp(config);
-
 const { validateLoginData, validateSignUpData } = require('../util/validators');
 
 // Login
@@ -28,7 +25,9 @@ exports.loginUser = (request, response) => {
         })
         .catch((error) => {
             console.error(error);
-            return response.status(403).json({ general: 'wrong credentials, please try again'});
+            return response.status(403).json({ 
+                general: 'wrong credentials, please try again'
+            });
         })
 };
 
@@ -49,8 +48,7 @@ exports.signUpUser = (request, response) => {
 	if (!valid) return response.status(400).json(errors);
 
     let token, userId;
-    db
-        .doc(`/users/${newUser.username}`)
+    db.doc(`/users/${newUser.username}`)
         .get()
         .then((doc) => {
             if (doc.exists) {
@@ -113,3 +111,4 @@ exports.getUserDetail = (request, response) => {
 			return response.status(500).json({ error: error.code });
 		});
 }
+

@@ -25,7 +25,6 @@ class Dashboard extends Component{
 	}
 
     componentWillMount = () => {
-		// authMiddleWare(this.props.history);
 		const authToken = localStorage.getItem('AuthToken');
 		axios.defaults.headers.common = { Authorization: `${authToken}` };
 		axios
@@ -51,6 +50,7 @@ class Dashboard extends Component{
 				this.setState({ errorMsg: 'Error in retrieving the data' });
 			});
 	};
+    
     
     render(){
 

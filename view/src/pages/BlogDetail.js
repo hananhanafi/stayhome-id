@@ -1,6 +1,8 @@
 import React,{ Component } from "react";
 import axios from 'axios';
 import { withRouter } from "react-router-dom";
+import moment from 'moment';
+
 
 class BlogDetail extends Component{
     constructor(props){
@@ -11,7 +13,6 @@ class BlogDetail extends Component{
             load:true,
         }
     }
-
 
     componentWillMount(){
         const {articleId} = this.props.match.params
@@ -32,7 +33,10 @@ class BlogDetail extends Component{
             Loading...
         </h3>
     }
+
     render(){
+
+        var date = moment(this.state.article.createdAt, "YYYYMMDD").fromNow()
 
         return (
         <div>
@@ -46,23 +50,22 @@ class BlogDetail extends Component{
                 </div>
                 <div className="row mb-5">
                     <div className="col-12">
-                    <div class="card w-100 text-black p-5">
-                        <h1 class="card-title">{this.state.article.title}</h1>
-                    <div class="card-body text-left">
-                        <h6 class="card-subtitle mb-2 text-muted">
-                            author : {this.state.article.username}
-                        <br/>
-                            created at : {this.state.article.createdAt}</h6>
-                        <p class="card-text"><div
-                        dangerouslySetInnerHTML={{
-                            __html: this.state.article.body
-                        }}></div></p>
-                    </div>
-                    </div>
+                        <div class="card w-100 text-black p-md-5">
+                            <h1 class="card-title">{this.state.article.title}</h1>
+                            <div class="card-body text-left">
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    author : {this.state.article.username}
+                                <br/>
+                                    created at : {date}</h6>
+                                <p class="card-text"><div
+                                dangerouslySetInnerHTML={{
+                                    __html: this.state.article.body
+                                }}></div></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
             }
         </div>
         )

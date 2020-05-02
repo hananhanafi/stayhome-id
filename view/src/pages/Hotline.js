@@ -7,7 +7,6 @@ class Hotline extends Component{
 
         return (
         <div className="App-header">
-
             <div className="container">
                 <div className="row my-3">
                     <div className="col text-black">
@@ -22,15 +21,9 @@ class Hotline extends Component{
                     <HotlineCard no="024 3580713 atau 082313600560" nama="Pemprov Jawa Tengah" url="jateng"/>
                     <HotlineCard no="031 8430313 atau 081334367800" nama="Pemprov Jawa Timur" url="jatim"/>
                     <HotlineCard no="0274 555585 atau 08112764800" nama="Pemprov D.I. Yogyakarta" url="yogyakarta"/>
-                    
-
-                    
                 </div>
             </div>
-
-
-
-            </div>
+        </div>
         )
     }
 }

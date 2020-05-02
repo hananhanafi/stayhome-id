@@ -23,7 +23,6 @@ class Login extends Component{
 
     handleSubmit = (event) => {
         event.preventDefault();
-        
         const userData = {
             email : this.state.email,
             password : this.state.password
@@ -57,7 +56,6 @@ class Login extends Component{
                         icon: 'error',
                         confirmButtonText: 'Close'
                     })
-
                 }else{
                     Swal.fire({
                         title: 'Error!',
@@ -67,8 +65,6 @@ class Login extends Component{
                     })
                 }
             })
-            
-
     }
     render(){
 

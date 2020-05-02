@@ -10,18 +10,13 @@ class Edukasi extends Component{
 
         return (
         <div className="App-header">
-
             <div className="container">
-                
                 <VideoEdukasi/>
                 <Informasi/>
                 <Saran/>
                 <Mitos/>
             </div>
-
-
-
-            </div>
+        </div>
         )
     }
 }

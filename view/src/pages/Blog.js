@@ -20,7 +20,6 @@ class Blog extends Component{
             this.setState({
                 articles : Array.from(response.data),
                 load:false
-
             })
         })
         .catch((err)=>{
@@ -45,14 +44,12 @@ class Blog extends Component{
 
         return (
         <div>
-            
             {this.state.load && this.renderLoading()}
             {!this.state.load && 
             <div className="container text-black">
                 <div className="row">
                     <div className="col-12 my-5">
                         <h1>Blog</h1>
-
                     </div>
                 </div>
                 <div className="row mb-5">
@@ -71,13 +68,8 @@ class Blog extends Component{
                         </div>
                         )
                     })}
-                    
-                    
                 </div>
-            </div>
-                }
-
-
+            </div>}
         </div>
         )
     }

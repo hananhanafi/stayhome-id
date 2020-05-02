@@ -29,7 +29,7 @@ class Navbar extends Component{
                             <Link style={{color:"white"}} className="nav-link" to="/konten"><i className="fas fa-book-reader"></i> EDUKASI</Link>
                             </li>
                             <li className="nav-item">
-                            <Link style={{color:"white"}} className="nav-link" to="/blog"><i className="fas fa-book-reader"></i> BLOG</Link>
+                            <Link style={{color:"white"}} className="nav-link" to="/blog"><i class="fab fa-blogger-b"></i> BLOG</Link>
                             </li>
                             
                             <li className="nav-item">

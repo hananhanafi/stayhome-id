@@ -16,19 +16,15 @@ class Home extends React.Component{
         totalSembuh:[],
         totalMeninggal:[],
         dataGlobal:[],
-        
-        
-        
     }
 
     componentWillMount(){
 
-        // total positif
+        // total global positif
         
         Axios.get('https://api.kawalcorona.com/positif/')
         .then(response => {
             return response.data;
-        
         })
         .then(data=>{
             this.setState({
@@ -39,12 +35,11 @@ class Home extends React.Component{
             console.log(error);
         });
 
-        // total sembuh
+        // total global sembuh
         
         Axios.get('https://api.kawalcorona.com/sembuh/')
         .then(response => {
             return response.data;
-        
         })
         .then(data=>{
             this.setState({
@@ -55,12 +50,11 @@ class Home extends React.Component{
             console.log(error);
         });
 
-        // total meninggal
+        // total global meninggal
         
         Axios.get('https://api.kawalcorona.com/meninggal/')
         .then(response => {
             return response.data;
-        
         })
         .then(data=>{
             this.setState({
@@ -71,11 +65,11 @@ class Home extends React.Component{
             console.log(error);
         });
 
+        //data indonesia
 
         Axios.get('https://api.kawalcorona.com/indonesia/')
         .then(response => {
             return response.data;
-        
         })
         .then(data=>{
             this.setState({
@@ -86,30 +80,27 @@ class Home extends React.Component{
             console.log(error);
         });
 
-        // provinsi
+        // data provinsi
 
         Axios.get('https://api.kawalcorona.com/indonesia/provinsi/')
         .then(response => {
             return response.data;
-        
         })
         .then(data=>{
             this.setState({
                 dataProvinsi:data,
                 loading: false
-                
             })
         })
         .catch(error => {
             console.log(error);
         });
 
-        //global
+        //data global
 
         Axios.get('https://api.kawalcorona.com/')
         .then(response => {
             return response.data;
-        
         })
         .then(data=>{
             this.setState({
@@ -121,23 +112,14 @@ class Home extends React.Component{
         .catch(error => {
             console.log(error);
         });
-
-
         
-
-
     }
-
 
     renderLoading() {
         return <h3 className="mt-5 text-center">
             Loading...
         </h3>
     }
-
-
-    
-    
 
     render(){
         const {dataIndonesia,loading,dataProvinsi,loadGlobal,totalPositif,totalMeninggal,totalSembuh,dataGlobal} = this.state
@@ -153,7 +135,6 @@ class Home extends React.Component{
             var meninggalIndonesia = dataIndonesia[0].meninggal.replace(",","");
 
         }
-        
 
         return (
         <header className="App-header">
@@ -243,10 +224,7 @@ class Home extends React.Component{
                                     <td>{data.attributes.Kasus_Semb}</td>
                                     <td>{data.attributes.Kasus_Meni}</td>
                                 </tr>
-                            })
-
-                            }
-                            
+                            })}
                             </tbody>
                         </table>
                         </div>

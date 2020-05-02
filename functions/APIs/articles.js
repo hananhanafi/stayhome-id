@@ -23,9 +23,7 @@ exports.getAllAticles = (request, response) => {
         return response.status(500).json({
             error : err.code
         })
-
     })
-
 };
 
 exports.createArticle = (request, response) => {
@@ -77,7 +75,6 @@ exports.updateArticle = (request, response) => {
             error : err.code
         })
     })
-
 };
 
 exports.deleteArticle = (request, response) => {
@@ -101,18 +98,25 @@ exports.deleteArticle = (request, response) => {
 };
 
 exports.showArticle = (request, response) => {
-    const document = db.doc(`/articles/${request.params.articleId}`);
+    const document = db.doc(
+        `/articles/${request.params.articleId}`
+        );
+        
     document
         .get()
         .then((doc) => {
-
             if (!doc.exists) {
-                return response.status(404).json({ error: 'article not found' })
+                return response.status(404).json({ 
+                    error: 'article not found' 
+                })
             }
             return response.json(doc.data());
         })
         .catch((err) => {
             console.error(err);
-            return response.status(500).json({ error: err.code });
+            return response.status(500).json({ 
+                error: err.code 
+            });
         });
 };
+

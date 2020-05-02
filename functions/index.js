@@ -15,7 +15,8 @@ app.get('/user',auth, getUserDetail);
 
 
 const {
-    getAllAticles, createArticle, updateArticle, deleteArticle, showArticle
+    getAllAticles, createArticle, 
+    updateArticle, deleteArticle, showArticle
 } = require('./APIs/articles');
 
 app.get('/articles', getAllAticles);
