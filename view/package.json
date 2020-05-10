@@ -37,5 +37,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://us-central1-stayhome-id.cloudfunctions.net/api"
+  // "proxy": "https://api.kawalcorona.com"
 }

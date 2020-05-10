@@ -16,8 +16,6 @@ class BlogDetail extends Component{
 
     componentWillMount(){
         const {articleId} = this.props.match.params
-        console.log("detail",articleId);
-
         axios.get(`https://us-central1-stayhome-id.cloudfunctions.net/api/article/${articleId}`)
         .then((response)=>{
             this.setState({
@@ -27,6 +25,8 @@ class BlogDetail extends Component{
             console.log(response.data);
         })
     }
+
+    
 
     renderLoading() {
         return <h3 className="mt-5 text-center App-header">
