@@ -43,10 +43,10 @@ class Blog extends Component{
     render(){
 
         return (
-        <div>
+        <div className="App-header">
             {this.state.load && this.renderLoading()}
             {!this.state.load && 
-            <div className="container text-black">
+            <div className="container bg-white text-black">
                 <div className="row">
                     <div className="col-12 my-5">
                         <h1>Blog</h1>

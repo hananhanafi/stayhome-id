@@ -40,7 +40,8 @@ class Router extends React.Component{
                     <Route path="/blog">
                         <Navbar/>
                         <Blog/>
-                        <Footer/></Route>
+                        <Footer/>
+                    </Route>
                     <Route path="/hotline">
                         <Navbar/>
                         <Hotline/>
