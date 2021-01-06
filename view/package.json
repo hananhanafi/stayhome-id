@@ -8,7 +8,7 @@
     "@testing-library/user-event": "^7.2.1",
     "@tinymce/tinymce-react": "^3.5.0",
     "anychart-react": "^1.4.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "bootstrap": "^4.5.0",
     "jquery": "^3.5.1",
     "jquery-easing": "0.0.1",
